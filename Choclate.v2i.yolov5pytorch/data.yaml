@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['cadbury', 'kisses', 'kitkat']
+
+roboflow:
+  workspace: ai-project-ioqnt
+  project: choclate
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/ai-project-ioqnt/choclate/dataset/2
