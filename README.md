@@ -1,52 +1,52 @@
 # ESP32-CAM Chocolate Object Detection (Kitkat vs Cadbury)
 
-Repository ini berisi kode sumber untuk proyek pendeteksian objek (*Object Detection*) pada dua jenis cokelat, yaitu **Kitkat** dan **Cadbury**, menggunakan modul **ESP32-CAM**. Model *machine learning* dilatih menggunakan Edge Impulse dan dijalankan secara *real-time* langsung pada perangkat ESP32-CAM (*Edge AI*).
+This repository contains the source code for an Object Detection project that identifies two types of chocolate, **Kitkat** and **Cadbury**, using the **ESP32-CAM** module. The machine learning model was trained using Edge Impulse and runs in real-time directly on the edge device (Edge AI).
 
-## 📌 Fitur Utama
-1. **Deteksi Objek Real-Time:** Kamera OV2640 akan memindai objek di depannya secara terus-menerus.
-2. **Indikator Serial Monitor:** Jika cokelat terdeteksi (dengan tingkat kepercayaan / *confidence* di atas 0.5), ESP32 akan mencetak label nama cokelat ("kitkat" atau "cadbury") beserta nilai akurasinya ke Serial Monitor.
-3. **Indikator Visual (LED):**
-   - Mendeteksi **Kitkat** ➡️ **LED Merah** menyala.
-   - Mendeteksi **Cadbury** ➡️ **LED Kuning** menyala.
+## 📌 Key Features
+1. **Real-Time Object Detection:** The OV2640 camera continuously captures and scans objects in its field of view.
+2. **Serial Monitor Output:** When a chocolate is detected (with a confidence score above 0.5), the ESP32 prints the label ("kitkat" or "cadbury") along with its exact confidence value to the Serial Monitor.
+3. **Visual Indicators (LEDs):**
+   - Detects **Kitkat** ➡️ **Red LED** turns on.
+   - Detects **Cadbury** ➡️ **Yellow LED** turns on.
 
-## 🛠️ Persiapan Perangkat Keras (Hardware Setup)
+## 🛠️ Hardware Setup
 
-### Komponen yang Dibutuhkan
-* 1x ESP32-CAM (AI-Thinker) + Modul Kamera OV2640
-* 1x FTDI Programmer (USB-to-TTL) untuk *upload* program
-* 1x LED Merah (Indikator Kitkat)
-* 1x LED Kuning (Indikator Cadbury)
-* 2x Resistor (220 ohm atau 330 ohm) untuk LED
-* Kabel Jumper secukupnya
+### Required Components
+* 1x ESP32-CAM (AI-Thinker) + OV2640 Camera Module
+* 1x FTDI Programmer (USB-to-TTL) for uploading the code
+* 1x Red LED (Kitkat indicator)
+* 1x Yellow LED (Cadbury indicator)
+* 2x Resistors (220 ohm or 330 ohm) for the LEDs
+* Jumper wires
 
-### Konfigurasi Pin (Wiring)
-Sambungkan komponen eksternal (LED) ke pin ESP32-CAM berikut:
+### Pin Configuration (Wiring)
+Connect the external components (LEDs) to the following ESP32-CAM pins:
 
-| Komponen | Pin ESP32-CAM | Keterangan |
+| Component | ESP32-CAM Pin | Description |
 | :--- | :--- | :--- |
-| **LED Merah** (Positif/Anoda) | `GPIO 14` | Indikator Kitkat |
-| **LED Kuning** (Positif/Anoda) | `GPIO 15` | Indikator Cadbury |
-| GND LED (Negatif/Katoda) | `GND` | Jangan lupa gunakan resistor pada rangkaian LED |
+| **Red LED** (Positive/Anode) | `GPIO 14` | Kitkat Indicator |
+| **Yellow LED** (Positive/Anode) | `GPIO 15` | Cadbury Indicator |
+| LED GND (Negative/Cathode) | `GND` | *Always use a resistor in series with the LEDs* |
 
-*Catatan: Pastikan menghubungkan pin `GPIO 0` ke `GND` pada ESP32-CAM saat melakukan proses upload/flashing melalui FTDI.*
+*Note: Make sure to connect `GPIO 0` to `GND` on the ESP32-CAM when you are about to upload/flash the code via the FTDI programmer.*
 
-## 💻 Persiapan Perangkat Lunak (Software Setup)
+## 💻 Software Setup
 
-1. **Install Arduino IDE:** Pastikan Anda menggunakan versi terbaru.
-2. **Install Board ESP32:** Tambahkan URL *board manager* Espressif dan install *package* ESP32.
-3. **Install Library Machine Learning:** 
-   Proyek ini menggunakan library hasil *export* dari Edge Impulse. Anda perlu menambahkan file zip library (contoh: `ei-galihgilanggg-project-1-arduino-1.0.3.zip`) ke Arduino IDE.
-   - Buka Arduino IDE > `Sketch` > `Include Library` > `Add .ZIP Library...`
-   - Pilih file .zip library Edge Impulse Anda.
+1. **Install Arduino IDE:** Ensure you are using the latest version.
+2. **Install the ESP32 Board:** Add the Espressif board manager URL to your IDE preferences and install the ESP32 package.
+3. **Install the Machine Learning Library:** 
+   This project uses an exported library from Edge Impulse. You need to add the `.zip` library file (e.g., `ei-galihgilanggg-project-1-arduino-1.0.3.zip`) into your Arduino IDE.
+   - Go to Arduino IDE > `Sketch` > `Include Library` > `Add .ZIP Library...`
+   - Select your Edge Impulse `.zip` file.
 
-## 🚀 Cara Menjalankan Program
+## 🚀 How to Run
 
-1. *Clone* atau *download* repository ini.
-2. Buka file `esp32camera_chocolateclassification.ino` di Arduino IDE.
-3. Hubungkan ESP32-CAM ke komputer menggunakan FTDI (Mode Flash: `GPIO 0` to `GND`).
-4. Pilih Board **AI Thinker ESP32-CAM** di menu `Tools` > `Board`.
-5. Klik **Upload**.
-6. Setelah upload selesai (*Done uploading*), **lepas jumper `GPIO 0` ke `GND`**.
-7. Buka **Serial Monitor** di Arduino IDE dan ubah *Baud Rate* menjadi `115200`.
-8. Tekan tombol **Reset (RST)** pada board ESP32-CAM.
-9. Arahkan kamera ke bungkus Kitkat atau Cadbury. Perhatikan Serial Monitor dan nyala LED Anda!
+1. Clone or download this repository to your local machine.
+2. Open the `esp32camera_chocolateclassification.ino` file in the Arduino IDE.
+3. Connect the ESP32-CAM to your computer using the FTDI programmer (Flash Mode: connect `GPIO 0` to `GND`).
+4. Select the **AI Thinker ESP32-CAM** board from `Tools` > `Board`.
+5. Click **Upload**.
+6. Once the upload is complete ("Done uploading"), **disconnect the jumper wire between `GPIO 0` and `GND`**.
+7. Open the **Serial Monitor** in the Arduino IDE and set the Baud Rate to `115200`.
+8. Press the **Reset (RST)** button on the ESP32-CAM board.
+9. Point the camera at a Kitkat or Cadbury wrapper. Watch the Serial Monitor print the results and see the LEDs light up accordingly!
